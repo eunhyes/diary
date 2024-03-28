@@ -209,7 +209,6 @@ AND MONTH(diary_date) = 3 ;
 			border-radius: 10px;
 			width: auto;
 			
-			
 			}
 	
 	.cell {
@@ -294,26 +293,23 @@ AND MONTH(diary_date) = 3 ;
 <div class="row">
 <div class="back-box mt-5">
 <div class="col-8 pb-3">
-	<div>
-		<a href="/diary/diary.jsp">다이어리모양으로보기</a>
-		<a href="/diary/diaryList.jsp">게시판모양으로보기</a>
-	</div>
+
 
 	<div class="" style="text-align: center;">
 	
 	<!-- 년도, 달력, 전/후 버튼 -->
-		<div class="">
+		<div class="row">
 			<!-- 이전달 -->
-			<div class="" style=" height: 50px; ">
+			<div class="col" style=" height: 50px; ">
 				<a href="/diary/diary.jsp?targetYear=<%=tYear %>&targetMonth=<%=tMonth-1 %>">
 				<img alt="" src="/diary/img/left.png" width="40px" height="40px"></a>
 			</div>
 			
 			<!-- 년도, 월 -->
-			<div class=""><h2><%=strMonth %> <%=tYear %></h2></div>
+			<div class="col"><h2><%=strMonth %> <%=tYear %></h2></div>
 			
 			<!-- 다음달 -->
-			<div class="" style="width: 50px; height: 50px; ">
+			<div class="col" style="width: 50px; height: 50px; ">
 				<a href="/diary/diary.jsp?targetYear=<%=tYear %>&targetMonth=<%=tMonth+1 %>">
 				<img alt="" src="/diary/img/right.png" width="40px" height="40px"></a>
 			</div>
@@ -377,7 +373,11 @@ AND MONTH(diary_date) = 3 ;
 		}
 	%>
 	</div>
-
+	<div class="col">
+		<a href="/diary/diary.jsp">다이어리 모양으로 보기</a>
+		<a href="/diary/diaryList.jsp">게시판 모양으로 보기</a>
+		<a href="/diary/statsLunch.jsp">점심 메뉴 통계 보기</a>
+	</div>
 		</div>
 	</div>
 </div>

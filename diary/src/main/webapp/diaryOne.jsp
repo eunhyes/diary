@@ -73,6 +73,7 @@
 	<div>
 		<a href="/diary/diary.jsp">다이어리모양으로보기</a>
 		<a href="/diary/diaryList.jsp">게시판모양으로보기</a>
+		<a href="/diary/lunchForm.jsp?diaryDate=<%=diaryDate %>">점심 메뉴 기록하기</a>
 	</div>
 	<div class="mt-3 mb-3" style="font-size: 30px;">하루 기록 보기</div>
 	

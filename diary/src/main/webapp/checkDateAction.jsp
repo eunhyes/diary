@@ -37,7 +37,7 @@
 		
 	}
 	
-	// 일기 기록 가능한지 분기
+// 일기 기록 가능한지 분기
 	String checkDate = request.getParameter("checkDate");
 	
 	String sql2 = "select diary_date diaryDate from diary where diary_date=?";

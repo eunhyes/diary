@@ -39,8 +39,9 @@
 
 <%
 	// 일기 기록이 이미 있는 경우 -> ck="F" -> 기록X 	
-	String diaryDate = request.getParameter("====== addDiaryForm diaryDate");
+	String diaryDate = request.getParameter("diaryDate");
 	String checkDate = request.getParameter("checkDate");
+	
 	if(checkDate == null) {
 		// null이 들어가지 않도록 공백처리 
 		checkDate = "";
