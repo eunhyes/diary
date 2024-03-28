@@ -85,14 +85,10 @@ WHERE lunch_date = CURDATE(); */
 		
 		
 	} else {
-		// 결과 존재 X = 기록 X
-		response.sendRedirect("/diary/diaryOne.jsp?diaryDate="+ diaryDate );
-		
-	} 
 
 %>
 <%
-//----------------------- lunch 입력 ---------------------//
+	//----------------------- lunch 입력 ---------------------//
 
 
 /* 	INSERT INTO lunch(lunch_date,menu,update_date,create_date)
@@ -108,7 +104,7 @@ WHERE lunch_date = CURDATE(); */
 	
 	System.out.println(stmt3);
 	
-/* 	int row = stmt3.executeUpdate();
+ 	int row = stmt3.executeUpdate();
 
 	if(row ==1) {
 		
@@ -119,67 +115,10 @@ WHERE lunch_date = CURDATE(); */
 	} else {
 		
 		System.out.println("입력실패");
-		response.sendRedirect("/diary/diaryOne.jsp?diaryDate="+ diaryDate);	 
+		response.sendRedirect("/diary/lunchForm.jsp?diaryDate="+ diaryDate);	 
 
 	} 
-			  */
-			 
-/* 	// diaryOne.jsp 페이지 재요청(redirect)
-	response.sendRedirect("/diary/lunchOne.jsp?diaryDate="+ diaryDate);	 */
-			 
-	
-	try {
-	    stmt3 = conn.prepareStatement(sql3);
-	    stmt3.setString(1, diaryDate);
-	    stmt3.setString(2, menu);
-	    int row = stmt3.executeUpdate();
-
-	    if(row == 1) {
-	        System.out.println("입력 성공");
-	    } else {
-	        System.out.println("입력 실패");
-	    }
-	} catch (SQLIntegrityConstraintViolationException e) {
-	    e.printStackTrace();
-	    // Handle duplicate entry error
-	} finally {
-	    if(stmt3 != null) stmt3.close();
-	}
-
+			  
+}
 	
 %>
-
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title></title>
-	
-	<!-- bootstrap -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	<!-- google fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
-	
-	<style type="text/css">
-		.post-box {
-		
-		background-color: rgba(255, 255, 255, 0.5);
-		margin: 100px;
-		border-radius: 10px;
-		width: 800px;
-		padding-top: 20px;
-		}
-	</style>
-	
-	
-</head>
-<body class="container text-center" style="background-image: url(/diary/img/sky.jpg)">
-<div class="row justify-content-center">
-	<div class="post-box">
-</div>
-</div>
-</body>
-</html>

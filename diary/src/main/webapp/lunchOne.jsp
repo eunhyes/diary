@@ -1,13 +1,11 @@
-<%@page import="org.eclipse.jdt.internal.compiler.ast.WhileStatement"%>
-<%@page import="javax.print.attribute.standard.Media"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
-<%@ page import="java.util.*" %> 
-    
+<%@ page import="java.util.*" %>        
+ 
 <%
-//로그인 (인증) 분기
+// 로그인 (인증) 분기
 	// diary.login.my_session (DB.table.column)
 	// ==> 'OFF' -> redirect("loginForm.jsp")
 	
@@ -44,41 +42,60 @@
 		return; // 코드 진행을 끝냄 -> 매서드를 끝낼 때
 		
 	}
-%>
 
+%>       
 <%
-/* SELECT menu, COUNT(*) FROM lunch
-WHERE YEAR(lunch_date) = 2024
-GROUP BY menu
-ORDER BY COUNT(*) DESC; */
+// 점심 투표를 안 했을 때 -> 투표 폼 보내기 -> 라디오버튼으로 선택 / 데이터 전송 
+// 점심 투표를 이미 했을 때 -> 투표 완료 폼 보내기 -> 삭제 버튼 / 이전페이지로? -> diaryOne.jsp?diaryDate= 
 
-	// 전체 개수 구하기(메뉴 그룹별로)
-	String sql2 = "SELECT menu, COUNT(*) cnt FROM lunch GROUP BY menu";
+	String diaryDate = request.getParameter("diaryDate");
+	String lunchDate = request.getParameter("lunchDate");
+	String checkLunch = request.getParameter("checkLunch");
+ 	if(lunchDate == null) {
+ 		
+ 		lunchDate = diaryDate;
+ 	}
+	// debug
+	System.out.println("----------lunchAction-----------");
+	System.out.println(diaryDate + " ====== lunchAction diaryDate");
+	System.out.println(lunchDate + " ====== lunchAction lunchDate");
 
+	// 결과 값이 있으면 이미 기록한 것 -> 이미 존재하므로 lunchOne.jsp로 보내기
+	String sql2 = "SELECT menu FROM lunch WHERE lunch_date = ?";
+	
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
+	stmt2.setString(1, diaryDate);
 	rs2 = stmt2.executeQuery();
-
+	
+	if(rs2.next()){
+		
+		String menu = rs2.getString("menu");
+	}
+	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	
 	<title></title>
 	
 	<style type="text/css">
+	
 		.back-box {
-		
-				background-color: rgba(255, 255, 255, 0.5);
-				border-radius: 10px;
-				width: 800px;
-				
-				}
-				
+	
+			background-color: rgba(255, 255, 255, 0.5);
+			border-radius: 10px;
+			width: 400px;
+			padding-top: 20px;
+			
+			}
+	
 	</style>
-		<!-- bootstrap -->
+	
+	<!-- bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<!-- google fonts -->
@@ -90,67 +107,19 @@ ORDER BY COUNT(*) DESC; */
 <body class="container text-center" style="background-image: url(/diary/img/sky.jpg)">
 <div class="row">
 <div class="back-box mt-5">
-	<%
-		// 개수세기
-		double maxHeight = 300;
-		double totalCnt = 0;
-		
-		while(rs2.next()){
-			
-			totalCnt = totalCnt + rs2.getInt("cnt");
-			
-		}
-		// 커서 다시 처음으로
-		rs2.beforeFirst();
 
-	%>		
-			
-<div>
-	전체 메뉴 선택 수 : <%=(int)totalCnt %>
-
-</div>
-
-<div class="">
-	<table border="1">
-		<tr>
-			<%
-				int i = 0;
-				// 그림그리기
-				while(rs2.next()) {
-					// 정수X -> double
-					int h = (int)(maxHeight* (rs2.getInt("cnt")/totalCnt));
-			
-			%>
-			
-				<td style="vertical-align: bottom;">
-					<div style="height: <%=h %>px; background-color: rgba(36, 87, 189, 0.8); text-align: center;">
-						 <%=rs2.getInt("cnt") %>
-					</div>
-				
-				</td>
-					
-			<%		
-					i = i+1;
-			
-				}
-			%>
-		</tr>
-		<tr>
-			<%
-				// 메뉴 읽어오기
-				rs2.beforeFirst();
-				
-				while(rs2.next()) {
-			%>
-				<td><%=rs2.getString("menu") %></td>
-			<%
-				}
-			%>
-		
-		</tr>
+	<div class="mb-2">
+		이미 기록했습니다.	
+	</div>
 	
-	</table>
-</div>
+		<div class="mb-2">메뉴는 <%=rs2.getString("menu") %>입니다. </div>
+
+
+	<div class="btn-group mb-3" style="background-color:  rgba(178, 204, 255, 0.7);">
+		<a class="btn" href="/diary/deleteLunch.jsp">삭제하기</a>
+		<a class="btn" href="/diary/diaryOne.jsp?diaryDate=<%=diaryDate%>">이전으로</a>
+	</div>
+
 </div>
 </div>
 </body>
