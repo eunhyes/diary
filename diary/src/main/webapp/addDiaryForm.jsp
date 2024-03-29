@@ -89,7 +89,7 @@
 </head>
 
 <body class="container text-center" style="background-image: url(/diary/img/sky.jpg)">
-<div class="row justify-content-center">
+<div class="row justify-content-center ">
 	<div class="post-box">
 		<div>
 			<a href="/diary/diary.jsp">다이어리모양으로보기</a>
@@ -114,7 +114,7 @@
 	<form method="post" action="/diary/addDiaryAction.jsp">
 	
 		<div class="row">
-		<div class="col-md-6 input-group mb-3" style="width: 60%;">
+		<div class="col-md-6 input-group mb-3" style="width: 300px;">
 			<span class="input-group-text px-2" style="width: 100px;">Date</span>
 			<%
 				if(ck.equals("T")) {
@@ -135,21 +135,21 @@
 			
 		</div>
 		
-		<div class="col-md-6 mb-3" style="width: 40%;">
-			기분 :
-			<input type="radio" name="feeling" value="&#128525;">&#128525;
-			<input type="radio" name="feeling" value="">
-			<input type="radio" name="feeling" value="">
-			<input type="radio" name="feeling" value="">
-			<input type="radio" name="feeling" value="">
+		<div class="col-md-6 mt-2 mb-3" style="width: 300px; text-align: center; vertical-align: middle;">
+			<label><input type="radio" name="feeling" value="&#128525;">&#128525;</label>
+			<label><input type="radio" name="feeling" value="&#128521;">&#128521;</label>
+			<label><input type="radio" name="feeling" value="&#128528;">&#128528;</label>
+			<label><input type="radio" name="feeling" value="&#128549;">&#128549;</label> 
+			<label><input type="radio" name="feeling" value="&#128565;">&#128565;</label>
+			<label><input type="radio" name="feeling" value="&#128545;">&#128545;</label>
 		</div>
 		
-		<div class="col-md-6 mb-3" style="width: 40%;">
+		<div class="col-md-6 mb-3" style="width: 200px;">
 			<select class="form-select" aria-label="Default select example" name="weather">
-				<option value="맑음">맑음</option>
-				<option value="흐림">흐림</option>
-				<option value="비">비</option>
-				<option value="눈">눈</option>
+				<option value="맑음">맑음 &#127774;</option>
+				<option value="흐림">흐림 &#9925;</option>
+				<option value="비">비 &#9748;</option>
+				<option value="눈">눈 &#9924;</option>
 			</select>
 		</div>
 		</div>

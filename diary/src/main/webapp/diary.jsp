@@ -144,7 +144,6 @@ AND MONTH(diary_date) = 3 ;
  
 %>
 
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,11 +164,12 @@ AND MONTH(diary_date) = 3 ;
 	
 			background-color: rgba(255, 255, 255, 0.5);
 			border-radius: 10px;
-			width: auto;
+			width: 800px;
+			box-sizing: border-box;
 			
 			}
 	
-	.cell {
+/* 	.cell {
 			display: flex;
 			width :calc(100%/7);
 			height : 70px;;
@@ -179,7 +179,7 @@ AND MONTH(diary_date) = 3 ;
 			box-sizing: border-box;
 			flex-wrap: wrap;
 			
-		}
+		} */
 		
 	.sat {
 			color: #0000FF;
@@ -213,7 +213,7 @@ AND MONTH(diary_date) = 3 ;
 			background-color: rgba(178, 204, 255, 0.7);
 	 		height: 30px;		
 			border-radius: 4px;
-	
+			text-align: center;
 		}
 		
 	.button {
@@ -248,113 +248,121 @@ AND MONTH(diary_date) = 3 ;
 	
 </head>
 <body class="container text-center" style="background-image: url(/diary/img/sky.jpg)">
-<div class="row">
-<div class="back-box mt-5">
-<div class="col-8 pb-3">
-
-
-	<div class="" style="text-align: center;">
-	
-	<!-- 년도, 달력, 전/후 버튼 -->
+	<div class="row">
+	<div class="back-box mt-5" style="padding-left: 30px; padding-right: 30px;">
+	<div style="margin: 10px; padding-left: 10px;">
+		<!-- 메뉴 이미지 -->
 		<div class="row">
-			<!-- 이전달 -->
-			<div class="col" style=" height: 50px; ">
-				<a href="/diary/diary.jsp?targetYear=<%=tYear %>&targetMonth=<%=tMonth-1 %>">
-				<img alt="" src="/diary/img/left.png" width="40px" height="40px"></a>
+			<div class="col-md-1">
+				<a href="/diary/diary.jsp">
+				<img alt="" src="/diary/img/calendar.png" width="40px" height="40px"></a>
 			</div>
 			
-			<!-- 년도, 월 -->
-			<div class="col"><h2><%=strMonth %> <%=tYear %></h2></div>
-			
-			<!-- 다음달 -->
-			<div class="col" style="width: 50px; height: 50px; ">
-				<a href="/diary/diary.jsp?targetYear=<%=tYear %>&targetMonth=<%=tMonth+1 %>">
-				<img alt="" src="/diary/img/right.png" width="40px" height="40px"></a>
+			<div class="col-md-1">
+				<a href="/diary/diaryList.jsp">
+				<img alt="" src="/diary/img/list.png" width="40px" height="40px"></a>
+			</div>
+			<div class="col-md-1"></div>
+			<!-- 년도, 달력, 전/후 버튼 -->
+				<!-- 이전달 -->
+				<div class="col-md-1" style=" height: 50px; ">
+					<a href="/diary/diary.jsp?targetYear=<%=tYear %>&targetMonth=<%=tMonth-1 %>">
+					<img alt="" src="/diary/img/left.png" width="40px" height="40px"></a>
+				</div>
+				
+				<!-- 년도, 월 -->
+				<div class="col-md-4"><h2><%=strMonth %> <%=tYear %></h2></div>
+				
+				<!-- 다음달 -->
+				<div class="col-md-1" style="width: 50px; height: 50px; ">
+					<a href="/diary/diary.jsp?targetYear=<%=tYear %>&targetMonth=<%=tMonth+1 %>">
+					<img alt="" src="/diary/img/right.png" width="40px" height="40px"></a>
+				</div>
+				<div class="col-md-1"></div>
+				
+				<div class="col-md-1">
+					<a href="/diary/statsLunch.jsp">
+					<img alt="" src="/diary/img/restaurant.png" width="40px" height="40px"></a>
+				</div>
+				<div class="col-md-1">
+			         <a href="/diary/addDiaryForm.jsp">
+			         <img alt="" src="/diary/img/write.png" width="40px" height="40px"></a>
+		      	</div>
+				
 			</div>
 		</div>
-	
-	<!-- 상단 요일 -->
-	<div class="yo">
-		<div class="">SUN</div>
-		<div class="">MON</div>
-		<div class="">TUE</div>
-		<div class="">WED</div>
-		<div class="">THR</div>
-		<div class="">FRI</div>
-		<div class="">SAT</div>
-	</div>
-	
-	<!-- DATE 값이 들어갈 div -->
-	<div class="calendar">
-	<%
-		for(int i=1; i <= countDiv; i=i+1) {
-			
-			if(i-startBlank > 0) {
-					
-			%>
-				<div><%=i-startBlank %><br>
-					
-			<%
-				// 현재날짜(i-startBlank)의 일기가 rs2 목록에 있는지 비교
-				while(rs2.next()) {
-					// 날짜에 일기가 존재한다 -> day에 출력
-					if(rs2.getInt("day") == (i-startBlank)) {
-			%>
-							<span><%=rs2.getString("feeling") %></span>
-							<a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>' ><%=rs2.getString("title") %>..</a>
+		
+		<!-- 상단 요일 -->
+		<div class="yo">
+			<div class="">SUN</div>
+			<div class="">MON</div>
+			<div class="">TUE</div>
+			<div class="">WED</div>
+			<div class="">THR</div>
+			<div class="">FRI</div>
+			<div class="">SAT</div>
+		</div>
+		
+		<!-- DATE 값이 들어갈 div -->
+		<div class="calendar">
+		<%
+			for(int i=1; i <= countDiv; i=i+1) {
+				
+				
+				
+				
+				if(i-startBlank > 0) {
 						
-			<%
-						// 찾았다 = 더 이상 찾을 필요 없이 끝낸다
-						break;
+				%>
+					<div><%=i-startBlank %><br>
+						
+				<%
+					// 현재날짜(i-startBlank)의 일기가 rs2 목록에 있는지 비교
+					while(rs2.next()) {
+						// 날짜에 일기가 존재한다 -> day에 출력
+						if(rs2.getInt("day") == (i-startBlank)) {
+				%>
+								<span><%=rs2.getString("feeling") %></span>
+								<a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>' ><%=rs2.getString("title") %>..</a>
+							
+				<%
+							// 찾았다 = 더 이상 찾을 필요 없이 끝낸다
+							break;
+						}
+						
 					}
 					
-				}
+				%>
+					</div>
+				<%
+					// 다시 찾으러 커서가 위로 올라간다
+					// ResultSet의 위치를 다시 위로 올리는 API
+					rs2.beforeFirst();
 				
-			%>
-				</div>
-			<%
-				// 다시 찾으러 커서가 위로 올라간다
-				// ResultSet의 위치를 다시 위로 올리는 API
-				rs2.beforeFirst();
-			
-			
-				} else { 
+				
+					} else { 
+						
+				%>
+					<div>&nbsp;</div>
 					
-			%>
-				<div>&nbsp;</div>
-				
-			<%
-				}
-			%>
-				
-	<%		
-		}
-	%>
-	</div>
-	<div class="col">
-		<a href="/diary/diary.jsp">다이어리 모양으로 보기</a>
-		<a href="/diary/diaryList.jsp">게시판 모양으로 보기</a>
-		<a href="/diary/statsLunch.jsp">점심 메뉴 통계 보기</a>
-	</div>
+				<%
+					}
+				%>
+					
+		<%		
+			}
+		%>
 		</div>
-	</div>
-</div>
-
-  <div class="btn-group mt-2">
-      <div class="me-2">
-         <a href="/diary/addDiaryForm.jsp" class="btn active" style="background-color: rgba(178, 204, 255, 0.7); border-color: rgba(178, 204, 255, 0.7);">Write Diary</a>
-      </div>
-      
-      <div class="me-2">
-         <a href="/diary/diaryList.jsp" class="btn active" style="background-color: rgba(178, 204, 255, 0.7); border-color: rgba(178, 204, 255, 0.7);">Diary List</a>
-      </div>
-      
-      <div class="me-2">
-         <a href="/diary/logout.jsp" class="btn active" style="background-color: rgba(178, 204, 255, 0.7); border-color: rgba(178, 204, 255, 0.7);">logout</a>
-      </div>
-   </div>
-
-</div>
-
+			<div class="row">
+				<div class="col-md-10"></div>
+				<div class="col-md-2 mb-4">
+		        	<a href="/diary/logout.jsp">
+		        	<img alt="" src="/diary/img/logout.png" width="40px" height="40px"></a>
+		     	</div>
+		     </div>
+		
+		</div>
+			
+		</div>
 </body>
 </html>
