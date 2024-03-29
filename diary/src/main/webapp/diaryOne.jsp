@@ -170,7 +170,7 @@
 
 			</div>
 
-			<!-- 댓글 리스트 -->
+			<!-- 댓글 기능 -->
 			<%
 				String sql2 = "select comment_no commentNo, memo, create_date createDate from comment where diary_date =?";
 	
@@ -198,8 +198,6 @@
 				%>
 
 			</table>
-
-
 
 		</div>
 	</div>

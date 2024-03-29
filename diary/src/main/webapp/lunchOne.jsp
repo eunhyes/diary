@@ -107,6 +107,7 @@
 <div class="row">
 <div class="back-box mt-5">
 
+	
 	<div class="mb-3">
 		이미 기록했습니다.	
 	</div>
@@ -114,8 +115,12 @@
 	<div class="mb-3">메뉴는 <%=rs2.getString("menu") %>입니다. </div>
 
 
+
 	<div class="btn-group mb-3" style="background-color:  rgba(178, 204, 255, 0.7);">
-		<a class="btn" href="/diary/deleteLunch.jsp">삭제하기</a>
+		<form action="/diary/deleteLunchAction.jsp">
+			<input type="hidden" name="diaryDate" value="<%=diaryDate %>">
+			<button type="submit">삭제하기</button>
+		</form>
 		<a class="btn" href="/diary/diaryOne.jsp?diaryDate=<%=diaryDate%>">이전으로</a>
 		<a class="btn" href="/diary/statsLunch.jsp">점심통계보기</a>
 	</div>
