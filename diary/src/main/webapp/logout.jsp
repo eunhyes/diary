@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%
-	// ON -> 
+/* 	// ON -> 
 
 	//쿼리부터 
 	String sql1 = "SELECT my_session mySession FROM login";
@@ -44,7 +44,12 @@
 	int row = stmt2.executeUpdate();
 	System.out.println(row + " ====== row");
 	
-	
+	 */
+	 
+	 
+	// session.removeAttribute("loginMember");
+	// 세션 공간 초기화(포맷) -> 로그인할 때 할당된 공간 사라짐 -> 로그아웃
+	session.invalidate(); 
 	response.sendRedirect("/diary/loginForm.jsp");
 	
 	

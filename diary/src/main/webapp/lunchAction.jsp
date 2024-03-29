@@ -56,21 +56,13 @@ WHERE lunch_date = CURDATE(); */
 
 	String diaryDate = request.getParameter("diaryDate");
 	String menu = request.getParameter("menu");
-	//String lunchDate = request.getParameter("lunchDate");
-	String checkLunch = request.getParameter("checkLunch");
- /* 	if(lunchDate == null) {
- 		
- 		lunchDate = diaryDate;
- 	} */
-
 	String lunchDate = diaryDate;
 	// debug
 	System.out.println("----------lunchAction-----------");
-	System.out.println(diaryDate + " ====== lunchAction diaryDate");
-	System.out.println(menu + " ====== lunchAction menu");
-	System.out.println(lunchDate + " ====== lunchAction lunchDate");
+	System.out.println(diaryDate + " ====== diaryDate");
+	System.out.println(menu + " ====== menu");
+	System.out.println(lunchDate + " ====== lunchDate");
 
-	// 결과 값이 있으면 이미 기록한 것 -> 이미 존재하므로 lunchOne.jsp로 보내기
 	String sql2 = "SELECT lunch_date lunchDate, menu FROM lunch WHERE lunch_date = ?";
 	
 	PreparedStatement stmt2 = null;
@@ -78,13 +70,13 @@ WHERE lunch_date = CURDATE(); */
 	stmt2 = conn.prepareStatement(sql2);
 	stmt2.setString(1, diaryDate);
 	rs2 = stmt2.executeQuery();
-	System.out.println(stmt2 + " ====== lunchAction stmt2");
+	System.out.println(stmt2 + " ====== stmt2");
 	if(rs2.next()) {
-		// 결과 존재 = 이미 기록 O
+		// 결과 존재 = 이미 기록 O -> 입력 완료(lunchOne.jsp)
 		response.sendRedirect("/diary/lunchOne.jsp?diaryDate="+ diaryDate);
 		
 		
-	} else {
+	} else { // 결과 존재X -> 입력하기(lunchForm.jsp)
 
 %>
 <%

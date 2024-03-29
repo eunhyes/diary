@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%
-	// 로그인 (인증) 분기
+/* // 로그인 (인증) 분기
 	
 	// diary.login.my_session (DB.table.column)
 	// ==> 'ON' -> redirect("diary.jsp")
@@ -36,15 +36,31 @@
 		
 	}
 	
+*/
 
-	// 1. 요청값 분석
+	// 0-1 로그인(인증) 분기 session 사용으로 변경
+	// 로그인 성공시 세션에 loginMember 라는 변수를 만들고 값으로 로그인 아이디를 저장
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	// 사용하는 Session API
+	// session.getAttribute() -> 찾는 변수가 없으면 null 값을 반환
+	// session.getAttribute(String) -> 변수 이름으로 변수값 반환
+	// null = 로그인 한 적 X(로그아웃 상태) / null != 로그인 상태
+	System.out.println ("----------- loginAction -----------");
+	System.out.println(loginMember + "====== loginMember");
+
+	
+	// loginForm 페이지는 로그아웃 상태에서만 출력되는 페이지 -> 로그인 성공시 diary.jsp 로
+	if(loginMember != null) {
+		
+		response.sendRedirect("/diary/diary.jsp");
+		return; // 메서드 끝내기
+		
+	}
+	
+	
 	String errMsg = request.getParameter("errMsg");
 	
-	
-	
-
 %>    
-
 
 <!DOCTYPE html>
 <html>

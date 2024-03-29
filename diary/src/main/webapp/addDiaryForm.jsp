@@ -3,41 +3,28 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%
-	// 로그인상태에서만 들어올 수 있음 (OFF상태에서는 X)
-	
-	//쿼리부터 
-	String sql1 = "SELECT my_session mySession FROM login";
-	// DB연결
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	// 로그인 -> ON, OFF 경우 나누기
-	String mySession = null;
-	
-	if(rs1.next()) {
+//0. 로그인 (인증) 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	// 세션 만료시
+	if(loginMember == null) {
 		
-		mySession = rs1.getString("mySession");
-		
-	}
-	
-	// 강제로 logout페이지를 불러왔을 때
-	if(mySession.equals("OFF")) { 
-		// 한글 인코딩
 		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 해주세요.", "UTF-8");
 		// OFF인 경우 loginForm 재호출 + 에러메세지
-		response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);	
-		return; // 코드 진행을 끝냄 -> 매서드를 끝낼 때
+		response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);
 		
+		return; // 코드 진행을 끝냄 -> 매서드를 끝낼 때
+
 	}
 
 %>
 
 <%
+
+	// DB연결
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
+
 	// 일기 기록이 이미 있는 경우 -> ck="F" -> 기록X 	
 	String diaryDate = request.getParameter("diaryDate");
 	String checkDate = request.getParameter("checkDate");

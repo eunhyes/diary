@@ -3,47 +3,21 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.*" %>
 <%@ page import="java.util.*" %>        
- 
 <%
-// 로그인 (인증) 분기
-	// diary.login.my_session (DB.table.column)
-	// ==> 'OFF' -> redirect("loginForm.jsp")
-	
-	// 쿼리부터 
-	String sql1 = "SELECT my_session mySession FROM login";
-	// DB연결
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	// 로그인 -> ON, OFF 경우 나누기
-	String mySession = null;
-	
-	if(rs1.next()) {
+//0. 로그인 (인증) 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	// 세션 만료시
+	if(loginMember == null) {
 		
-		mySession = rs1.getString("mySession");
-		
-	}
-	
-	if(mySession.equals("OFF")) { 
-		// 한글 인코딩
 		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 해주세요.", "UTF-8");
 		// OFF인 경우 loginForm 재호출 + 에러메세지
-		response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);	
-		// DB 자원 반납 -> return 전에
-		rs1.close();
-		stmt1.close();
-		conn.close();
+		response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);
 		
 		return; // 코드 진행을 끝냄 -> 매서드를 끝낼 때
-		
+
 	}
 
-%>       
+%>
 <%
 
 	String diaryDate = request.getParameter("diaryDate");
@@ -60,24 +34,10 @@
 	System.out.println(diaryDate);
 	System.out.println(menu);
 	System.out.println(lunchDate);
-	System.out.println(checkLunch);
 	System.out.println("----------lunchForm-----------");
-	
-	if(checkLunch == null) {
-		
-		checkLunch ="";
-		
-	}
-	
-	String ck = request.getParameter("ck");
-	if(ck == null) {
-		// null이 들어가지 않도록 공백처리 
-		ck = "";
-	}
 	
 
 %>
-
 
 <!DOCTYPE html>
 <html>

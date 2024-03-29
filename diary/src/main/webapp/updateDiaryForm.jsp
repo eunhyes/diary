@@ -4,6 +4,21 @@
 <%@ page import="java.net.*" %>    
 <%@ page import="java.util.*" %>       
 <%
+//0. 로그인 (인증) 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	// 세션 만료시
+	if(loginMember == null) {
+		
+		String errMsg = URLEncoder.encode("잘못된 접근입니다. 로그인 해주세요.", "UTF-8");
+		// OFF인 경우 loginForm 재호출 + 에러메세지
+		response.sendRedirect("/diary/loginForm.jsp?errMsg=" + errMsg);
+		
+		return; // 코드 진행을 끝냄 -> 매서드를 끝낼 때
+
+	}
+
+%>
+<%
 
 	//입력값 선언
 	String diaryDate = request.getParameter("diaryDate");
