@@ -308,9 +308,6 @@ AND MONTH(diary_date) = 3 ;
 		<%
 			for(int i=1; i <= countDiv; i=i+1) {
 				
-				
-				
-				
 				if(i-startBlank > 0) {
 						
 				%>
