@@ -29,7 +29,7 @@ WHERE diary_date = '2024-03-22'; */
 	System.out.println(updateDate + " ====== updateDate");
 	System.out.println(createDate + " ====== createDate");
 	
-	// 쿼리 -> title, weather, content, update_date, diary_date
+	// 쿼리 -> title, weather, content, diary_date
 	String sql1 = "UPDATE diary SET title = ?, weather = ?, content = ?, update_date = NOW() WHERE diary_date = ?;";
 	//DB 연결
 	Class.forName("org.mariadb.jdbc.Driver");
@@ -42,8 +42,7 @@ WHERE diary_date = '2024-03-22'; */
 	stmt1.setString(1, title);
 	stmt1.setString(2, weather);
 	stmt1.setString(3, content);
-	stmt1.setString(4, title);
-	stmt1.setString(5, diaryDate);
+	stmt1.setString(4, diaryDate);
 
 	row = stmt1.executeUpdate();
 	
@@ -52,11 +51,11 @@ WHERE diary_date = '2024-03-22'; */
 		
 		System.out.println("수정 성공");
 
-		response.sendRedirect("/diary/diary/diaryOne.jsp?diaryDate="+diaryDate);
+		response.sendRedirect("/diary/diaryOne.jsp?diaryDate="+diaryDate);
 	
 	} else { // 수정 실패
 		
-		response.sendRedirect("/diary/diary/updateDiaryFrom.jsp?diaryDate="+diaryDate);
+		response.sendRedirect("/diary/updateDiaryFrom.jsp?diaryDate="+diaryDate);
 		
 	}
 	

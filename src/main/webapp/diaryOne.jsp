@@ -33,7 +33,7 @@
 	FROM diary
 	WHERE diary_date = ?; 
 	 */
-	String sql = "SELECT diary_no diaryNo, diary_date diaryDate, title, weather, content, update_date updateDate FROM diary WHERE diary_date = ?";
+	String sql = "SELECT diary_date diaryDate, title, weather, content, update_date updateDate FROM diary WHERE diary_date = ?";
 	stmt1 = conn.prepareStatement(sql);
 	stmt1.setString(1, diaryDate);
 	
