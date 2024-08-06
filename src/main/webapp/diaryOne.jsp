@@ -167,7 +167,7 @@
 				</div>
 
 				<div class="me-2">
-					<a href="/diary/deleteDiaryAction.jsp" class="btn active"
+					<a href="/diary/deleteDiaryAction.jsp?diaryDate=<%=rs1.getString("diaryDate")%>" class="btn active"
 						style="background-color: rgba(178, 204, 255, 0.7); border-color: rgba(178, 204, 255, 0.7);">삭제하기</a>
 				</div>
 

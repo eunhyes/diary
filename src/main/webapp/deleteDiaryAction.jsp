@@ -18,11 +18,10 @@
 	ResultSet rs = null;
 	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary", "root", "java1234");
 
-	String sql = "DELETE FROM diary WHERE diary_date diaryDate=? and FROM member WHERE memberPw=?";
+	String sql = "DELETE FROM diary WHERE diary_date = ?";
 	
 	stmt = conn.prepareStatement(sql);
 	stmt.setString(1, diaryDate);
-	stmt.setString(2, memberPw);
 	int row = stmt.executeUpdate();
 
 	System.out.println(row + "========== deleteDiaryAction row");
@@ -32,7 +31,7 @@
 		response.sendRedirect("/diary/diary.jsp");
 		System.out.println("삭제성공");
 	} else {
-		response.sendRedirect("/diary/deleteDiaryForm.jsp?diaryDate="+diaryDate+"&memberPw="+memberPw);
+		response.sendRedirect("/diary/deleteDiaryForm.jsp?diaryDate="+diaryDate);
 		System.out.println("삭제실패");
 	}
  	
