@@ -25,9 +25,7 @@
 	String mySession = null;
 	
 	if(rs1.next()) {
-		
 		mySession = rs1.getString("mySession");
-		
 	}
 	
 	if(mySession.equals("OFF")) { 
@@ -74,14 +72,11 @@ WHERE lunch_date = CURDATE(); */
 	if(rs2.next()) {
 		// 결과 존재 = 이미 기록 O -> 입력 완료(lunchOne.jsp)
 		response.sendRedirect("/diary/lunchOne.jsp?diaryDate="+ diaryDate);
-		
-		
 	} else { // 결과 존재X -> 입력하기(lunchForm.jsp)
 
 %>
 <%
 	//----------------------- lunch 입력 ---------------------//
-
 
 /* 	INSERT INTO lunch(lunch_date,menu,update_date,create_date)
 	VALUES(CURDATE(), ?, NOW(), NOW()); */
@@ -99,18 +94,18 @@ WHERE lunch_date = CURDATE(); */
  	int row = stmt3.executeUpdate();
 
 	if(row ==1) {
-		
 		System.out.println("입력성공");
 		response.sendRedirect("/diary/lunchOne.jsp?diaryDate="+ diaryDate);	
-
-		
 	} else {
-		
 		System.out.println("입력실패");
 		response.sendRedirect("/diary/lunchForm.jsp?diaryDate="+ diaryDate);	 
-
 	} 
-			  
+	stmt3.close();
+    stmt2.close();
+    rs2.close();
+    rs1.close();
+    stmt1.close();
+    conn.close();
 }
-	
+
 %>

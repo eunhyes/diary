@@ -37,7 +37,6 @@
 	}
 	
 */
-
 	// 0-1 로그인(인증) 분기 session 사용으로 변경
 	// 로그인 성공시 세션에 loginMember 라는 변수를 만들고 값으로 로그인 아이디를 저장
 	String loginMember = (String)(session.getAttribute("loginMember"));
@@ -51,12 +50,9 @@
 	
 	// loginForm 페이지는 로그아웃 상태에서만 출력되는 페이지 -> 로그인 성공시 diary.jsp 로
 	if(loginMember != null) {
-		
 		response.sendRedirect("/diary/diary.jsp");
 		return; // 메서드 끝내기
-		
 	}
-	
 	
 	String errMsg = request.getParameter("errMsg");
 	
@@ -127,10 +123,6 @@
 			</div>
 	
 		</form>
-
-
-
-
 	</div>
 </div>	
 </body>

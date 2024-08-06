@@ -28,18 +28,16 @@
 	System.out.println(row + "========== deleteDiaryAction row");
 	rs = stmt.executeQuery(); 
 
-
  	if(row == 1 ){ //디버깅 ->비번 실패시
- 		
 		response.sendRedirect("/diary/diary.jsp");
 		System.out.println("삭제성공");
-		
 	} else {
-
 		response.sendRedirect("/diary/deleteDiaryForm.jsp?diaryDate="+diaryDate+"&memberPw="+memberPw);
 		System.out.println("삭제실패");
-
 	}
+ 	
+ 	stmt.close();
+    conn.close();
 %>    
     
     

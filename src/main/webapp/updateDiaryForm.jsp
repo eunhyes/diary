@@ -19,7 +19,6 @@
 
 %>
 <%
-
 	//입력값 선언
 	String diaryDate = request.getParameter("diaryDate");
 	// 디버깅 코드
@@ -40,7 +39,6 @@
 	
 	if(rs1.next()) {
 	
-
 %>
     
 <!DOCTYPE html>
@@ -56,7 +54,6 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
-
 
 	<style type="text/css">
 	
@@ -75,48 +72,46 @@
 <body class="container text-center" style="background-image: url(/diary/img/sky.jpg)">
 <div class="row justify-content-center">
 	<div class="post-box">
-		<div>
-			<a href="/diary/diary.jsp">다이어리모양으로보기</a>
-			<a href="/diary/diaryList.jsp">게시판모양으로보기</a>
+		<div class="row">
+			<div class="col-2 mt-3">
+				<a href="/diary/diary.jsp">
+				<img alt="" src="/diary/img/calendar.png" width="40px" height="40px"></a>
+			</div>
+			<div class="col-2 mt-3">
+				<a href="/diary/diaryList.jsp">
+				<img alt="" src="/diary/img/list.png" width="40px" height="40px"></a>
+			</div>
+			<div class="col-4 mt-3 mb-3" style="font-size: 30px;">수정하기</div>
 		</div>
-		<div class="mt-3 mb-3" style="font-size: 30px;">수정하기</div>
-	
-<hr>
-	
-		<form method="post" action="/diary/updateDiaryAction.jsp">
+		<hr>
 		
+		<form method="post" action="/diary/updateDiaryAction.jsp">
 			<div class="row">
-			<div class="col-md-6 input-group mb-3" style="width: 60%;">
-				<span class="input-group-text px-2" style="width: 100px;">Date</span>
-				<input type="text" class="form-control" name="diaryDate" value="<%=rs1.getString("diaryDate") %>" readonly="readonly">
+				<div class="col-md-6 input-group mb-3" style="width: 60%;">
+					<span class="input-group-text px-2" style="width: 100px;">Date</span>
+					<input type="text" class="form-control" name="diaryDate" value="<%=rs1.getString("diaryDate") %>" readonly="readonly">
+				</div>
+				<div class="col-md-6 mb-3" style="width: 40%;">
+					<select class="form-select" aria-label="Default select example" name="weather">
+						<option value="맑음" <%= "맑음".equals(rs1.getString("weather")) ? "selected" : "" %>>맑음</option>
+						<option value="흐림" <%= "흐림".equals(rs1.getString("weather")) ? "selected" : "" %>>흐림</option>
+						<option value="비" <%= "비".equals(rs1.getString("weather")) ? "selected" : "" %>>비</option>
+						<option value="눈" <%= "눈".equals(rs1.getString("weather")) ? "selected" : "" %>>눈</option>
+					</select>
+				</div>
 			</div>
-			
-			<div class="col-md-6 mb-3" style="width: 40%;">
-				<select class="form-select" aria-label="Default select example" name="weather">
-					<option value="맑음">맑음</option>
-					<option value="흐림">흐림</option>
-					<option value="비">비</option>
-					<option value="눈">눈</option>
-				</select>
-			</div>
-			</div>
-			
 			<div class="input-group mb-3">
 			  <span class="input-group-text" id="title" style="width: 100px;">Title</span>
 			  <input type="text" class="form-control" name="title" value="<%=rs1.getString("title") %>" aria-label="Username" aria-describedby="basic-addon1">
 			</div>
-	
 			<div class="input-group">
 			  <span class="input-group-text" style="width: 100px;">Content</span>
 			  <textarea class="form-control" aria-label="With textarea" name="content" rows="8" cols="50"><%=rs1.getString("content") %></textarea>
 			</div>
-			
 			<div>
 				<button type="submit" class="mt-3 mb-3 btn" style="width: 100%; background-color: rgba(178, 204, 255, 0.7); ">완료</button>
 			</div>	
-				
 		</form>
-	
 	</div>
 </div>			
 </body>
@@ -124,5 +119,8 @@
 
 <%
 	}
+	rs1.close();
+ 	stmt1.close();
+    conn.close();
 %>
 

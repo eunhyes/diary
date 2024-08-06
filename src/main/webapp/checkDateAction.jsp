@@ -59,13 +59,10 @@
 
 	}
 	
-	
-	
-	
-	
-	
-
-
-	
+	rs2.close();
+	stmt2.close();
+	rs1.close();
+	stmt1.close();
+    conn.close();
 	
 %>

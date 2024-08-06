@@ -73,6 +73,9 @@
 		String menu = rs2.getString("menu");
 	}
 	
+	rs2.close();
+	stmt2.close();
+	conn.close();
 %>
 
 <!DOCTYPE html>
@@ -84,13 +87,20 @@
 	<style type="text/css">
 	
 		.back-box {
-	
 			background-color: rgba(255, 255, 255, 0.5);
 			border-radius: 10px;
 			width: 400px;
 			padding-top: 20px;
 			
-			}
+		}
+		
+		.button {
+		background-color: rgba(178, 204, 255, 0.7);
+		color: #000;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+		}	
 	
 	</style>
 	
@@ -111,15 +121,13 @@
 	<div class="mb-3">
 		이미 기록했습니다.	
 	</div>
-	
+	<br>
 	<div class="mb-3">메뉴는 <%=rs2.getString("menu") %>입니다. </div>
-
-
-
+	<br>
 	<div class="btn-group mb-3" style="background-color:  rgba(178, 204, 255, 0.7);">
 		<form action="/diary/deleteLunchAction.jsp">
 			<input type="hidden" name="diaryDate" value="<%=diaryDate %>">
-			<button type="submit">삭제하기</button>
+			<button class="btn button" type="submit">삭제하기</button>
 		</form>
 		<a class="btn" href="/diary/diaryOne.jsp?diaryDate=<%=diaryDate%>">이전으로</a>
 		<a class="btn" href="/diary/statsLunch.jsp">점심통계보기</a>

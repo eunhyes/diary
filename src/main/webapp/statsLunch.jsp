@@ -123,6 +123,10 @@ ORDER BY COUNT(*) DESC; */
 				<td><%=rs2.getString("menu") %></td>
 			<%
 				}
+				
+				rs2.close();
+				stmt2.close();
+				conn.close();
 			%>
 		
 		</tr>

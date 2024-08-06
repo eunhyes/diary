@@ -55,12 +55,15 @@
 	
 	<style type="text/css">
 		.post-box {
+			background-color: rgba(255, 255, 255, 0.5);
+			margin: 100px;
+			border-radius: 10px;
+			width: 800px;
+			padding-top: 20px;
+		}
 		
-		background-color: rgba(255, 255, 255, 0.5);
-		margin: 100px;
-		border-radius: 10px;
-		width: 800px;
-		padding-top: 20px;
+		.radio-label {
+			margin-right: 15px;
 		}
 	</style>
 	
@@ -71,24 +74,37 @@
 	<div class="post-box">
 	<form method="post" action="/diary/lunchAction.jsp">
 		<input type="hidden" name="diaryDate" value="<%=diaryDate %>">
-		<div>
-			<input type="radio" name="menu" value="한식">한식
-			<input type="radio" name="menu" value="일식">일식
-			<input type="radio" name="menu" value="중식">중식
-			<input type="radio" name="menu" value="분식">분식
-			<input type="radio" name="menu" value="양식">양식
-			<input type="radio" name="menu" value="기타">기타
+		<div class="mb-3">
+			<label class="radio-label">
+				<input type="radio" name="menu" value="한식">
+				한식
+			</label>
+			<label class="radio-label">
+				<input type="radio" name="menu" value="일식">
+				일식
+			</label>
+			<label class="radio-label">
+				<input type="radio" name="menu" value="중식">
+				중식
+			</label>
+			<label class="radio-label">
+				<input type="radio" name="menu" value="분식">
+				분식
+			</label>
+			<label class="radio-label">
+				<input type="radio" name="menu" value="양식">
+				양식
+			</label>
+			<label class="radio-label">
+				<input type="radio" name="menu" value="기타">
+				기타
+			</label>
 		</div>
-	
-	
-	
-		<div>
-			<button type="submit"class="mt-3 mb-3 btn" style="width: 200px; background-color: rgba(178, 204, 255, 0.7);">투표하기</button>
-		</div>
-		
-	
-	</form>
 
+		<div>
+			<button type="submit" class="mt-3 mb-3 btn" style="width: 200px; background-color: rgba(178, 204, 255, 0.7);">투표하기</button>
+		</div>
+	</form>
 
 </div>
 </div>

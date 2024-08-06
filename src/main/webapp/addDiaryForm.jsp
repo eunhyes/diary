@@ -50,6 +50,8 @@
 		msg = "일기가 이미 존재하는 날짜입니다";
 	}
 	
+	conn.close();
+	
 %>    
     
 <!DOCTYPE html>
@@ -91,12 +93,19 @@
 <body class="container text-center" style="background-image: url(/diary/img/sky.jpg)">
 <div class="row justify-content-center ">
 	<div class="post-box">
-		<div>
-			<a href="/diary/diary.jsp">다이어리모양으로보기</a>
-			<a href="/diary/diaryList.jsp">게시판모양으로보기</a>
+		<div class="row">
+			<div class="col-2 mt-3 me-3">
+				<a href="/diary/diary.jsp">
+				<img alt="" src="/diary/img/calendar.png" width="40px" height="40px"></a>
+			</div>
+			
+			<div class="col-1 mt-3 me-3">
+				<a href="/diary/diaryList.jsp">
+				<img alt="" src="/diary/img/list.png" width="40px" height="40px"></a>
+			</div>
+			<div class="col-5 mt-3 mb-3" style="font-size: 30px;">하루 기록하기</div>
+			<div class="col-4"></div>
 		</div>
-	<div class="mt-3 mb-3" style="font-size: 30px;">하루 기록하기</div>
-	
 	<!-- 입력막기 -->
 	<form method="post" action="/diary/checkDateAction.jsp">
 		

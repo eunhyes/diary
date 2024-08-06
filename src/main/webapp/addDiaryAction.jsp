@@ -59,11 +59,12 @@
 		
 	} 
 			 
+	stmt.close();
+	conn.close();
 			 
 	// diary.jsp 페이지 재요청(redirect)
 	response.sendRedirect("/diary/diary.jsp");	
 			 
-
 %>
 
     

@@ -18,6 +18,7 @@
 %>
 <%
 	String diaryDate = request.getParameter("diaryDate");
+	System.out.println(diaryDate + "====== diaryOne.jsp diaryDate");
 	
 	//-------------------- 일기 상세 내용 모델값 ------------------------//
 	
@@ -67,33 +68,49 @@
 	rel="stylesheet">
 
 <style type="text/css">
+	
+	.post-box {
+		background-color: rgba(255, 255, 255, 0.5);
+		margin: 100px;
+		border-radius: 10px;
+		width: 800px;
+	}
+	
+	.button {
+		background-color: rgba(178, 204, 255, 0.7);
+		color: rgb(0, 0, 0);
+		border-color: rgba(178, 204, 255, 0.7);
+	}
+	
+	.a {
+		text-decoration: none; 
+	       color: black; 
+	}
 
-.post-box {
-	background-color: rgba(255, 255, 255, 0.5);
-	margin: 100px;
-	border-radius: 10px;
-	width: 800px;
-}
-
-.button {
-	background-color: rgba(178, 204, 255, 0.7);
-	color: rgb(0, 0, 0);
-	border-color: rgba(178, 204, 255, 0.7);
-}
 </style>
 </head>
 <body class="container text-center"
 	style="background-image: url(/diary/img/sky.jpg)">
 	<div class="row justify-content-center">
 		<div class="post-box">
-			<div>
-				<a href="/diary/diary.jsp">다이어리모양으로보기</a> <a
-					href="/diary/diaryList.jsp">게시판모양으로보기</a> <a
-					href="/diary/lunchForm.jsp?diaryDate=<%=diaryDate%>">점심 메뉴
-					기록하기</a>
+			<div class="row">
+				<div class="col-2 mt-3">
+					<a href="/diary/diary.jsp">
+					<img alt="" src="/diary/img/calendar.png" width="40px" height="40px"></a>
+				</div>
+				
+				<div class="col-2 mt-3">
+					<a href="/diary/diaryList.jsp">
+					<img alt="" src="/diary/img/list.png" width="40px" height="40px"></a>
+				</div>
+				<div class="col-4 mt-3 mb-3" style="font-size: 30px;">하루 기록 보기</div>
+				<div class="col-2 mt-3"></div>
+				<div class="col-2 mt-3">
+					<a href="/diary/lunchForm.jsp">
+					<img alt="" src="/diary/img/restaurant.png" width="40px" height="40px"></a>
+				</div>
 			</div>
-			<div class="mt-3 mb-3" style="font-size: 30px;">하루 기록 보기</div>
-
+			
 			<%
 			if (rs1.next()) {
 			%>
@@ -136,7 +153,9 @@
 			</div>
 
 			<%
-			}
+				}
+			rs1.close();
+			stmt1.close();
 			%>
 
 			<div class="btn-group mb-3 ">
@@ -161,18 +180,19 @@
 
 
 			<!-- 댓글 입력 폼 -->
-			<div>
-				<form method="post" action="/diary/addCommentAction.jsp">
+			<div class="d-flex align-items-center mb-3">
+				<form method="post" action="/diary/addCommentAction.jsp" class="w-100 d-flex">
 					<input type="hidden" name="diaryDate" value="<%=diaryDate%>">
-					<textarea rows="2" cols="50" name="memo"></textarea>
-					<button type="submit">댓글등록</button>
+					<textarea class="form-control me-2" rows="1" name="memo" placeholder="댓글을 입력하세요" style="flex: 3;"></textarea>
+					<button class="btn button" type="submit" style="width: 100px;">댓글등록</button>
 				</form>
-
 			</div>
+
+
 
 			<!-- 댓글 기능 -->
 			<%
-				String sql2 = "select comment_no commentNo, memo, create_date createDate from comment where diary_date =?";
+				String sql2 = "SELECT comment_no commentNo, diary_date diaryDate, memo, create_date createDate FROM comment where diary_date =?";
 	
 				PreparedStatement stmt2 = null;
 				ResultSet rs2 = null;
@@ -181,20 +201,24 @@
 				stmt2.setString(1, diaryDate);
 				rs2 = stmt2.executeQuery();
 			%>
-			<table border="1">
+			<table class="table">
 				<%
 					while (rs2.next()) {
 				%>
 					<tr>
-						<td><%=rs2.getString("memo")%></td>
-						<td><%=rs2.getString("createDate")%></td>
-						<td>
-							<a href="/diary/deleteComment.jsp?commentNo=<%=rs2.getInt("commentNo")%>">수정</a>
+						<td width="400px;"><%=rs2.getString("memo")%></td>
+						<td width="200px;"><%=rs2.getString("createDate")%></td>
+						<td >
+							<a class="a" href="/diary/deleteCommentAction.jsp?commentNo=<%=rs2.getInt("commentNo")%>&diaryDate=<%=rs2.getString("diaryDate")%>">
+							<img alt="" src="/diary/img/close.png" width="16px" height="16px">
+							</a>
 						</td>
 					</tr>
-
 				<%
 					}
+				rs2.close();
+				stmt2.close();
+				conn.close();
 				%>
 
 			</table>

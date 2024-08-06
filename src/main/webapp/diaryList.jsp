@@ -93,63 +93,126 @@
 		lastPage = lastPage + 1;
 	}
 	
-	
+	rs3.close();
+ 	stmt3.close();
 %>    
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>Diary List</title>
 	
-		<!-- bootstrap -->
+	<!-- bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<!-- google fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
-	
+		
+	<style>
+	body {
+		background-image: url('/diary/img/sky.jpg');
+		background-size: cover;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: 'IBM Plex Sans KR', sans-serif;
+	}
+
+	.post-box {
+		background-color: rgba(255, 255, 255, 0.5);
+		padding: 30px;
+		border-radius: 10px;
+		width: 100%;
+		max-width: 800px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.table {
+		margin-top: 20px;
+	}
+
+	.table th, .table td {
+		vertical-align: middle;
+	}
+
+	.button {
+		background-color: rgba(178, 204, 255, 0.7);
+		color: #000;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+	}
+
+	.button:hover {
+		background-color: rgba(178, 204, 255, 1);
+		color: #fff;
+	}
+
+	.pagination {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+	</style>
 </head>
 <body>
-	
-	<form method="get" action="/diary/diary.jsp">
-	
-		<div>
-			제목 검색 :
-			<input type="text" name="searchWord">
-			<button type="submit">검색</button>
+	<div class="post-box">
+		<div class="d-flex justify-content-center mb-3">
+			<div class="row">
+				<div class="col-1 me-3">
+					<a href="/diary/diary.jsp">
+					<img alt="" src="/diary/img/calendar.png" width="40px" height="40px"></a>
+				</div>
+				
+				<div class="col-1 me-3">
+					<a href="/diary/diaryList.jsp">
+					<img alt="" src="/diary/img/list.png" width="40px" height="40px"></a>
+				</div>
+				<div class="col-4">
+					<form method="get" action="/diary/diaryList.jsp">
+						<div class="input-group mb-3" style="width: 400px;">
+							<input type="text" class="form-control" name="searchWord" placeholder="제목 검색" value="<%=searchWord %>">
+							<button class="btn button" type="submit">검색</button>
+						</div>
+					</form>
+				</div>	
+			</div>
+			<div class="col-1">
+					<a href="/diary/statsLunch.jsp">
+					<img alt="" src="/diary/img/restaurant.png" width="40px" height="40px"></a>
+				</div>
 		</div>
-	
-	</form>
-	
-	<table>
-		<tr>
-			<td>날짜</td>
-			<td>제목</td>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">날짜</th>
+					<th scope="col">제목</th>
+				</tr>
+			</thead>
+			<tbody>
+			<%
+				while(rs2.next()) {
+			%>
+				<tr onclick="location.href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate") %>'">
+					<td><%=rs2.getString("diaryDate") %></td>
+					<td><%=rs2.getString("title") %></td>
+				</tr>
+			<%
+				}
+				rs2.close();
+			 	stmt2.close();
+			    conn.close();
+			%>
+			</tbody>
+		</table>
 		
-		</tr>
-		<%
-			while(rs2.next()) {
-		
-		%>
-		<tr>
-			<td><%=rs2.getString("diaryDate") %></td>
-			<td><%=rs2.getString("title") %></td>
-		</tr>
-	
-		<%
-			}
-		%>
-	
-	</table>
-	
-	<a href="">이전</a>
-	<a href="">다음</a>
-	
-	
-	
-
-
-
+		<div class="pagination">
+			<a class="btn btn-outline-primary <%= currentPage == 1 ? "disabled" : "" %>" href="?currentPage=<%= currentPage - 1 %>&searchWord=<%= URLEncoder.encode(searchWord, "UTF-8") %>">이전</a>
+			<a class="btn btn-outline-primary <%= currentPage == lastPage ? "disabled" : "" %>" href="?currentPage=<%= currentPage + 1 %>&searchWord=<%= URLEncoder.encode(searchWord, "UTF-8") %>">다음</a>
+		</div>
+	</div>
 </body>
 </html>

@@ -28,6 +28,8 @@
 		response.sendRedirect("/diary/diaryOne.jsp?diaryDate="+diaryDate);
 
 	}
+	stmt.close();
+	conn.close();
 	
 %>    
     

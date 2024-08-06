@@ -141,7 +141,7 @@ AND MONTH(diary_date) = 3 ;
 	System.out.println(stmt2);
 	
 	rs2 = stmt2.executeQuery();
- 
+	
 %>
 
 <!DOCTYPE html>
@@ -235,6 +235,16 @@ AND MONTH(diary_date) = 3 ;
  		height: 80px;		
 		box-sizing: border-box;
 	}
+	.a {
+		text-decoration: none; 
+        color: black; 
+	}
+	.color{
+	    background-color: rgba(217, 229, 255, 0.7);
+		border-color: rgba(178, 204, 255, 0.7);
+		border-radius: 14px;
+	}
+	
 	 
 	</style>
 	
@@ -319,9 +329,10 @@ AND MONTH(diary_date) = 3 ;
 						// 날짜에 일기가 존재한다 -> day에 출력
 						if(rs2.getInt("day") == (i-startBlank)) {
 				%>
+							<div class="color">
 								<span><%=rs2.getString("feeling") %></span>
-								<a href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>' ><%=rs2.getString("title") %>..</a>
-							
+								<a class="a" href='/diary/diaryOne.jsp?diaryDate=<%=rs2.getString("diaryDate")%>'><%=rs2.getString("title") %>..</a>
+							</div>
 				<%
 							// 찾았다 = 더 이상 찾을 필요 없이 끝낸다
 							break;
@@ -348,6 +359,10 @@ AND MONTH(diary_date) = 3 ;
 					
 		<%		
 			}
+		
+		rs2.close();
+		stmt2.close();
+		conn.close();
 		%>
 		</div>
 			<div class="row">
